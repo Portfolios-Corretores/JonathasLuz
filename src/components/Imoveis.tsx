@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import {
   FaBath,
   FaBed,
@@ -6,10 +6,13 @@ import {
   FaTimes,
   FaWhatsapp,
   FaMapMarkerAlt,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
-import imgPontal from "../assets/imoveis/pontal.webp";
-import imgCostaDourada from "../assets/imoveis/costa.webp";
-import imgOlinda from "../assets/imoveis/olinda.webp";
+import imgAika from "../assets/imoveis/aika.webp";
+import imgMahrak from "../assets/imoveis/mahrak.webp";
+import imgTahre from "../assets/imoveis/tahre.webp";
+import imgUmahre from "../assets/imoveis/umahre.webp";
 
 const WHATSAPP_NUMBER = "558198498446";
 
@@ -28,43 +31,56 @@ export type Imovel = {
 
 const imoveis: Imovel[] = [
   {
-    id: "pontal-maracaipe",
-    nome: "Pontal Maracaipe",
-    localizacao: "Fragoso, Paulista - PE",
+    id: "aika-vila-tamandare",
+    nome: "Aikã Vila Tamandaré",
+    localizacao: "Tamandaré- PE",
     precoApartirDe: "R$ 189.000",
-    metragem: "42,15 m²",
-    quartos: 2,
-    banheiros: 1,
-    destaque: "Litoral Norte",
-    imagem: imgPontal,
-    descricao:
-      "Empreendimento no litoral de Paulista, com localização estratégica e tipologias pensadas para moradia ou investimento. Ideal para quem busca proximidade com o mar, praticidade e valorização na região.",
-  },
-  {
-    id: "start-costa-dourada",
-    nome: "Start Costa Dourada",
-    localizacao: "Garapu, Cabo de Santo Agostinho - PE",
-    precoApartirDe: "R$ 210.000",
-    metragem: "47,38 m²",
-    quartos: 2,
+    metragem: "36,93 m²",
+    quartos: 1,
     banheiros: 1,
     destaque: "Litoral Sul",
-    imagem: imgCostaDourada,
+    imagem: imgAika,
+    descricao:
+      "Empreendimento no litoral de Tamandaré, com localização estratégica e tipologias pensadas para moradia ou investimento. Ideal para quem busca proximidade com o mar, praticidade e valorização na região.",
+  },
+  {
+    id: "mahrak-villa-maracaipe",
+    nome: "Mahrak Villa Maracaípe",
+    localizacao: "Maracaípe- PE",
+    precoApartirDe: "R$ 210.000",
+    metragem: "21.77 m²",
+    quartos: 1,
+    banheiros: 1,
+    destaque: "Litoral Sul",
+    imagem: imgMahrak,
     descricao:
       "Apartamentos no litoral sul de Pernambuco, em região de forte crescimento. Uma opção equilibrada entre qualidade de vida, acesso às praias e potencial de valorização para quem deseja investir com segurança.",
   },
   {
-    id: "rooftop-olinda-prime",
-    nome: "Rooftop Olinda Prime",
-    localizacao: "Jardim Atlântico, Olinda - PE",
+    id: "tahre-villa-tamandare",
+    nome: "Tahré villa Tamandaré",
+    localizacao: "Tamandaré - PE",
     precoApartirDe: "R$ 245.000",
-    metragem: "39,78 m²",
-    quartos: 2,
+    metragem: "20,23 m²",
+    quartos: 1,
     banheiros: 1,
-    destaque: "Costa de Olinda",
-    imagem: imgOlinda,
+    destaque: "Litoral Sul",
+    imagem: imgTahre,
     descricao:
-      "Empreendimento em Jardim Atlântico, uma das áreas mais desejadas de Olinda. Combina localização privilegiada perto do litoral com um projeto contemporâneo e tipologias eficientes para morar ou investir.",
+      "Empreendimento no litoral de Tamandaré, alto potencial de valorização e investimento, com sua belezas naturais e demandas crescentes.",
+  },
+  {
+    id: "umahre-villa-carneiros",
+    nome: "Umahré Villa Carneiros",
+    localizacao: "Carneiros - PE",
+    precoApartirDe: "R$ 245.000",
+    metragem: "29,55 m²",
+    quartos: 1,
+    banheiros: 1,
+    destaque: "Litoral Sul",
+    imagem: imgUmahre,
+    descricao:
+      "Empreendimento no litoral de Carneiros, com localização estratégica e tipologias pensadas para moradia ou investimento. Ideal para quem busca proximidade com o mar, praticidade e valorização na região.",
   },
 ];
 
@@ -75,7 +91,41 @@ function whatsappUrl(imovel: Imovel) {
 
 function Imoveis() {
   const [selecionado, setSelecionado] = useState<Imovel | null>(null);
+  const [podeVoltar, setPodeVoltar] = useState(false);
+  const [podeAvancar, setPodeAvancar] = useState(true);
+  const scrollerRef = useRef<HTMLUListElement>(null);
   const tituloId = useId();
+
+  const atualizarSetas = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    setPodeVoltar(el.scrollLeft > 4);
+    setPodeAvancar(el.scrollLeft < maxScroll - 4);
+  };
+
+  const rolar = (direcao: -1 | 1) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const card = el.querySelector("li");
+    const gap = 24;
+    const passo = card ? card.getBoundingClientRect().width + gap : 320;
+    el.scrollBy({ left: direcao * passo, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    atualizarSetas();
+    el.addEventListener("scroll", atualizarSetas, { passive: true });
+    window.addEventListener("resize", atualizarSetas);
+
+    return () => {
+      el.removeEventListener("scroll", atualizarSetas);
+      window.removeEventListener("resize", atualizarSetas);
+    };
+  }, []);
 
   useEffect(() => {
     if (!selecionado) return;
@@ -101,40 +151,74 @@ function Imoveis() {
       aria-labelledby="imoveis-titulo"
     >
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="max-w-2xl" data-reveal>
-          <p className="mb-3 text-xs font-semibold tracking-[0.2em] text-bg-dark/45 uppercase">
-            Portfólio
-          </p>
-          <h2
-            id="imoveis-titulo"
-            className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-semibold leading-tight tracking-tight text-bg-dark"
-          >
-            Imóveis no litoral
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-bg-dark/65">
-            Seleção de empreendimentos no litoral de Pernambuco. Clique para
-            conhecer detalhes e solicitar informações.
-          </p>
+        <div
+          className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+          data-reveal
+        >
+          <div className="max-w-2xl">
+            <p className="mb-3 text-xs font-semibold tracking-[0.2em] text-bg-dark/45 uppercase">
+              Portfólio
+            </p>
+            <h2
+              id="imoveis-titulo"
+              className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-semibold leading-tight tracking-tight text-bg-dark"
+            >
+              Imóveis no litoral
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-bg-dark/65">
+              Seleção de empreendimentos no litoral de Pernambuco. Clique para
+              conhecer detalhes e solicitar informações.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 self-start sm:self-end">
+            <span className="text-sm font-medium text-bg-dark/55">
+              Para ver mais imóveis
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => rolar(-1)}
+                disabled={!podeVoltar}
+                className="flex size-10 items-center justify-center border border-bg-dark/15 text-bg-dark transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-bg-dark/15 disabled:hover:text-bg-dark"
+                aria-label="Imóveis anteriores"
+              >
+                <FaChevronLeft aria-hidden />
+              </button>
+              <button
+                type="button"
+                onClick={() => rolar(1)}
+                disabled={!podeAvancar}
+                className="flex size-10 items-center justify-center border border-bg-dark/15 text-bg-dark transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-bg-dark/15 disabled:hover:text-bg-dark"
+                aria-label="Próximos imóveis"
+              >
+                <FaChevronRight aria-hidden />
+              </button>
+            </div>
+          </div>
         </div>
 
-        <ul className="mt-12 grid gap-6 md:grid-cols-3">
+        <ul
+          ref={scrollerRef}
+          className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           {imoveis.map((imovel, index) => (
             <li
               key={imovel.id}
-              data-reveal
-              style={{ ["--reveal-delay" as string]: `${index * 100}ms` }}
+              className="w-[min(85%,calc((100%-3rem)/3.25))] shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2.15)] md:w-[calc((100%-3rem)/3.25)]"
             >
               <button
                 type="button"
                 onClick={() => setSelecionado(imovel)}
                 className="group flex h-full w-full flex-col overflow-hidden border border-bg-dark/10 bg-white text-left shadow-sm transition-colors hover:border-accent"
               >
-                <div className="aspect-16/10 w-full overflow-hidden">
+                <div className="aspect-16/10 w-full overflow-hidden bg-bg-dark/5">
                   <img
                     src={imovel.imagem}
                     alt={imovel.nome}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
+                    loading={index < 3 ? "eager" : "lazy"}
+                    fetchPriority={index < 2 ? "high" : "auto"}
                     decoding="async"
                   />
                 </div>

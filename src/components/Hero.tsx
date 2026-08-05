@@ -1,7 +1,9 @@
-import { FaWhatsapp } from "react-icons/fa";
-import fundoHero from "../assets/fundo.webp";
+import { FaWhatsapp, FaStar } from "react-icons/fa";
+import fundoHero from "../assets/hero-fundo.webp";
 
 const WHATSAPP_URL = "https://wa.me/558198498446";
+const GOOGLE_PERFIL_URL =
+  "https://www.google.com/maps?cid=2445636624228145203";
 
 function Hero() {
   return (
@@ -16,7 +18,7 @@ function Hero() {
           alt=""
           fetchPriority="high"
           decoding="async"
-          className="h-full w-full scale-105 object-cover object-center animate-hero-image blur-[2px]"
+          className="h-full w-full scale-105 object-cover object-center animate-hero-image blur-[0.4px]"
         />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(21_24_30/0.82)_0%,rgb(21_24_30/0.68)_35%,rgb(21_24_30/0.45)_65%,rgb(21_24_30/0.35)_100%)] max-md:bg-[linear-gradient(180deg,rgb(21_24_30/0.5)_0%,rgb(21_24_30/0.65)_40%,rgb(21_24_30/0.85)_100%)]" />
       </div>
@@ -28,16 +30,54 @@ function Hero() {
           </p>
 
           <h1 className="text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.1] tracking-tight text-text-light animate-hero-fade [animation-delay:0.3s]">
-            Transforme o sonho da casa própria em realidade.
+            Encontre o imóvel{" "}
+            <em className="font-[Georgia,serif] italic font-semibold text-accent">ideal</em>
+            <br />
+            para viver ou investir.
           </h1>
 
           <p className="mt-5 max-w-2xl text-[clamp(0.95rem,1.6vw,1.2rem)] leading-relaxed text-text-muted animate-hero-fade lg:mt-6 [animation-delay:0.45s]">
-            Descubra imóveis selecionados para quem valoriza localização,
-            arquitetura, conforto e exclusividade. Um portfólio pensado para
-            transformar a busca pelo imóvel ideal em uma experiência única.
+            Apartamentos, coberturas e oportunidades de investimento
+            cuidadosamente selecionados em Recife. Um portfólio curado para quem
+            busca localização, arquitetura e valorização.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3 animate-hero-fade max-sm:w-full max-sm:flex-col lg:mt-10 lg:gap-4 [animation-delay:0.6s]">
+          <a
+            href={GOOGLE_PERFIL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-7 inline-flex max-w-full items-stretch gap-4 rounded-2xl border border-white/10 bg-black/45 px-4 py-3 text-text-light backdrop-blur-md transition-colors hover:border-white/20 hover:bg-black/55 animate-hero-fade sm:gap-5 sm:px-10 sm:py-5 [animation-delay:0.55s]"
+            aria-label="5,0 de 64 avaliações no Google — Boa Viagem, Recife PE"
+          >
+            <div className="flex min-w-0 flex-col justify-center gap-1">
+              <div className="flex items-center gap-2">
+                <span className="flex shrink-0 gap-0.5 text-[#2dd4bf]" aria-hidden>
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <FaStar key={i} className="text-[0.7rem] sm:text-xs" />
+                  ))}
+                </span>
+                <span className="text-lg font-bold leading-none sm:text-xl">
+                  5,0
+                </span>
+              </div>
+              <span className="text-[0.7rem] leading-tight text-white/85 sm:text-sm">
+                64 avaliações no Google
+              </span>
+            </div>
+
+            <span className="w-px shrink-0 self-stretch bg-white/35" aria-hidden />
+
+            <div className="flex min-w-0 flex-col justify-center gap-0.5">
+              <span className="text-sm font-bold leading-tight sm:text-base">
+                Boa Viagem
+              </span>
+              <span className="text-[0.7rem] leading-tight text-white/85 sm:text-xs">
+                Recife — PE
+              </span>
+            </div>
+          </a>
+
+          <div className="mt-5 flex flex-wrap gap-3 animate-hero-fade max-sm:w-full max-sm:flex-col lg:mt-6 lg:gap-4 [animation-delay:0.7s]">
             <a
               href={WHATSAPP_URL}
               target="_blank"
@@ -58,19 +98,11 @@ function Hero() {
       </div>
 
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 text-bg-dark"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-10"
         aria-hidden
       >
-        <svg
-          className="block h-10 w-full sm:h-14 lg:h-16"
-          viewBox="0 0 1440 64"
-          preserveAspectRatio="none"
-        >
-          <path
-            fill="currentColor"
-            d="M0 64V28C240 8 480 0 720 0s480 8 720 28v36H0Z"
-          />
-        </svg>
+        <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-[#3d5a7c] to-transparent" />
+        <div className="absolute inset-x-[8%] -bottom-3 h-6 bg-[radial-gradient(ellipse_at_center,rgb(61_90_124/0.7)_0%,transparent_70%)] blur-md" />
       </div>
     </section>
   );

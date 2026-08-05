@@ -10,6 +10,7 @@ import Localizacao from "./components/Localizacao";
 import Footer from "./components/Footer";
 import ScrollReveal from "./components/ScrollReveal";
 import PageAtmosphere from "./components/PageAtmosphere";
+import WhatsAppFloat from "./components/WhatsAppFloat";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Cta />
         <Localizacao />
         <Footer />
+        <WhatsAppFloat />
       </div>
     </>
   );

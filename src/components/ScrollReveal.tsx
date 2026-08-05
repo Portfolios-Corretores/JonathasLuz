@@ -23,8 +23,8 @@ function ScrollReveal() {
       },
       {
         threshold: 0.05,
-        // Revela um pouco antes de entrar na tela, evitando atraso visual
-        rootMargin: "80px 0px 0px 0px",
+        // Antecipa o reveal acima e abaixo da viewport
+        rootMargin: "100px 0px 100px 0px",
       },
     );
 
