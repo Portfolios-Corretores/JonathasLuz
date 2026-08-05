@@ -196,7 +196,7 @@ function Imoveis() {
           {imoveis.map((imovel, index) => (
             <li
               key={imovel.id}
-              className="w-[min(85%,calc((100%-3rem)/3.25))] shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2.15)] md:w-[calc((100%-3rem)/3.25)]"
+              className="w-full shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] md:w-[calc((100%-3rem)/3.25)]"
             >
               <button
                 type="button"
