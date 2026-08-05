@@ -24,9 +24,14 @@ function About() {
           data-reveal="left"
         >
           <img
-            src="/fotoJonathas.png"
+            src="/fotoJonathas.webp"
             alt="Jonathas Luz, corretor de imóveis em Recife"
             className="block aspect-3/4 w-full object-cover object-top"
+            width={900}
+            height={900}
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
           />
         </div>
 

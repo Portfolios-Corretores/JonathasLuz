@@ -72,6 +72,8 @@ function NewPalace() {
             src={fachadaNewPalace}
             alt="Fachada da New Palace Imobiliária"
             className="aspect-4/3 w-full object-cover"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>

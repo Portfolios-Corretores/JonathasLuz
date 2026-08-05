@@ -1,5 +1,5 @@
 import { FaWhatsapp } from "react-icons/fa";
-import fundoHero from "../assets/fundo.jpg";
+import fundoHero from "../assets/fundo.webp";
 
 const WHATSAPP_URL = "https://wa.me/558198498446";
 
@@ -7,16 +7,18 @@ function Hero() {
   return (
     <section
       id="inicio"
-      className="relative isolate flex min-h-[calc(100vh-4.5rem)] items-center overflow-hidden bg-bg-dark"
+      className="relative isolate flex min-h-svh items-center overflow-hidden bg-bg-dark"
       aria-label="Apresentação"
     >
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
         <img
           src={fundoHero}
           alt=""
-          className="h-full w-full object-cover object-center animate-hero-image"
+          fetchPriority="high"
+          decoding="async"
+          className="h-full w-full scale-105 object-cover object-center animate-hero-image blur-[2px]"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(31_28_26/0.72)_0%,rgb(31_28_26/0.55)_35%,rgb(31_28_26/0.28)_65%,rgb(31_28_26/0.18)_100%)] max-md:bg-[linear-gradient(180deg,rgb(31_28_26/0.35)_0%,rgb(31_28_26/0.55)_40%,rgb(31_28_26/0.78)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(21_24_30/0.82)_0%,rgb(21_24_30/0.68)_35%,rgb(21_24_30/0.45)_65%,rgb(21_24_30/0.35)_100%)] max-md:bg-[linear-gradient(180deg,rgb(21_24_30/0.5)_0%,rgb(21_24_30/0.65)_40%,rgb(21_24_30/0.85)_100%)]" />
       </div>
 
       <div className="mx-auto flex w-full max-w-7xl justify-start px-5 py-16 lg:px-8 lg:py-24">

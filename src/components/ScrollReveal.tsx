@@ -22,8 +22,9 @@ function ScrollReveal() {
         });
       },
       {
-        threshold: 0.12,
-        rootMargin: "0px 0px -6% 0px",
+        threshold: 0.05,
+        // Revela um pouco antes de entrar na tela, evitando atraso visual
+        rootMargin: "80px 0px 0px 0px",
       },
     );
 

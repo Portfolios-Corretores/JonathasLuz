@@ -7,9 +7,9 @@ import {
   FaWhatsapp,
   FaMapMarkerAlt,
 } from "react-icons/fa";
-import imgPontal from "../assets/imoveis/dan-begel-BeDRKfU91BI-unsplash.jpg";
-import imgCostaDourada from "../assets/imoveis/nico-smit-0m7nhg34IHg-unsplash.jpg";
-import imgOlinda from "../assets/imoveis/santiago-ramirez-FqXYIevdhV4-unsplash.jpg";
+import imgPontal from "../assets/imoveis/pontal.webp";
+import imgCostaDourada from "../assets/imoveis/costa.webp";
+import imgOlinda from "../assets/imoveis/olinda.webp";
 
 const WHATSAPP_NUMBER = "558198498446";
 
@@ -134,6 +134,8 @@ function Imoveis() {
                     src={imovel.imagem}
                     alt={imovel.nome}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
 
