@@ -21,7 +21,7 @@ function Hero() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(21_24_30/0.82)_0%,rgb(21_24_30/0.68)_35%,rgb(21_24_30/0.45)_65%,rgb(21_24_30/0.35)_100%)] max-md:bg-[linear-gradient(180deg,rgb(21_24_30/0.5)_0%,rgb(21_24_30/0.65)_40%,rgb(21_24_30/0.85)_100%)]" />
       </div>
 
-      <div className="mx-auto flex w-full max-w-7xl justify-start px-5 py-16 lg:px-8 lg:py-24">
+      <div className="mx-auto flex w-full max-w-7xl justify-start px-5 py-16 pb-28 lg:px-8 lg:py-24 lg:pb-32">
         <div className="flex w-full max-w-4xl flex-col items-start text-left max-md:max-w-none">
           <p className="mb-4 text-xs font-semibold tracking-[0.2em] text-accent uppercase animate-hero-fade lg:mb-5 lg:text-sm [animation-delay:0.15s]">
             Imóveis em Recife-PE
@@ -55,6 +55,22 @@ function Hero() {
             </a>
           </div>
         </div>
+      </div>
+
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 text-bg-dark"
+        aria-hidden
+      >
+        <svg
+          className="block h-10 w-full sm:h-14 lg:h-16"
+          viewBox="0 0 1440 64"
+          preserveAspectRatio="none"
+        >
+          <path
+            fill="currentColor"
+            d="M0 64V28C240 8 480 0 720 0s480 8 720 28v36H0Z"
+          />
+        </svg>
       </div>
     </section>
   );

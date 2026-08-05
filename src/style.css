@@ -2,8 +2,8 @@
 
 :root {
   /* Paleta principal — carvão frio do crepúsculo do hero */
-  --bg-dark: #15181e;
-  --card-dark: #23272f;
+  --bg-dark: #1d2f46;
+  --card-dark: #274059;
   --text-light: #f0f2f5;
   --text-muted: #aeb4bd;
   --accent: #d8a92d;
@@ -164,7 +164,7 @@ body {
   height: min(55vw, 36rem);
   background: radial-gradient(
     circle,
-    rgb(35 39 47 / 0.9) 0%,
+    rgb(39 64 89 / 0.9) 0%,
     transparent 70%
   );
   animation: atmosphere-drift-b 28s ease-in-out infinite alternate;
@@ -195,7 +195,7 @@ body {
     ),
     radial-gradient(
       ellipse 75% 40% at 85% 15%,
-      rgb(35 39 47 / 0.6),
+      rgb(39 64 89 / 0.6),
       transparent 50%
     );
   animation: atmosphere-pulse 12s ease-in-out infinite alternate;
