@@ -24,7 +24,6 @@ export type Imovel = {
   metragem: string;
   quartos: number;
   banheiros: number;
-  descricao: string;
   destaque: string;
   imagem: string;
 };
@@ -34,53 +33,45 @@ const imoveis: Imovel[] = [
     id: "aika-vila-tamandare",
     nome: "Aikã Vila Tamandaré",
     localizacao: "Tamandaré- PE",
-    precoApartirDe: "R$ 189.000",
+    precoApartirDe: "R$ 419.050,00",
     metragem: "36,93 m²",
     quartos: 1,
     banheiros: 1,
     destaque: "Litoral Sul",
     imagem: imgAika,
-    descricao:
-      "Empreendimento no litoral de Tamandaré, com localização estratégica e tipologias pensadas para moradia ou investimento. Ideal para quem busca proximidade com o mar, praticidade e valorização na região.",
   },
   {
     id: "mahrak-villa-maracaipe",
     nome: "Mahrak Villa Maracaípe",
     localizacao: "Maracaípe- PE",
-    precoApartirDe: "R$ 210.000",
+    precoApartirDe: "R$ 279.994,82",
     metragem: "21.77 m²",
     quartos: 1,
     banheiros: 1,
     destaque: "Litoral Sul",
     imagem: imgMahrak,
-    descricao:
-      "Apartamentos no litoral sul de Pernambuco, em região de forte crescimento. Uma opção equilibrada entre qualidade de vida, acesso às praias e potencial de valorização para quem deseja investir com segurança.",
   },
   {
     id: "tahre-villa-tamandare",
     nome: "Tahré villa Tamandaré",
     localizacao: "Tamandaré - PE",
-    precoApartirDe: "R$ 245.000",
+    precoApartirDe: "R$ 277.018,75",
     metragem: "20,23 m²",
     quartos: 1,
     banheiros: 1,
     destaque: "Litoral Sul",
     imagem: imgTahre,
-    descricao:
-      "Empreendimento no litoral de Tamandaré, alto potencial de valorização e investimento, com sua belezas naturais e demandas crescentes.",
   },
   {
     id: "umahre-villa-carneiros",
     nome: "Umahré Villa Carneiros",
     localizacao: "Carneiros - PE",
-    precoApartirDe: "R$ 245.000",
+    precoApartirDe: "R$ 113.407,50",
     metragem: "29,55 m²",
     quartos: 1,
     banheiros: 1,
     destaque: "Litoral Sul",
     imagem: imgUmahre,
-    descricao:
-      "Empreendimento no litoral de Carneiros, com localização estratégica e tipologias pensadas para moradia ou investimento. Ideal para quem busca proximidade com o mar, praticidade e valorização na região.",
   },
 ];
 
@@ -339,10 +330,6 @@ function Imoveis() {
                   {selecionado.banheiros === 1 ? "banheiro" : "banheiros"}
                 </span>
               </div>
-
-              <p className="mt-6 text-base leading-relaxed text-bg-dark/65">
-                {selecionado.descricao}
-              </p>
 
               <a
                 href={whatsappUrl(selecionado)}
