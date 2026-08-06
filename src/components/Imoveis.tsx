@@ -1,4 +1,10 @@
-import { useEffect, useId, useRef, useState } from "react";
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import {
   FaBath,
   FaBed,
@@ -9,10 +15,7 @@ import {
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
-import imgAika from "../assets/imoveis/aika.webp";
-import imgMahrak from "../assets/imoveis/mahrak.webp";
-import imgTahre from "../assets/imoveis/tahre.webp";
-import imgUmahre from "../assets/imoveis/umahre.webp";
+import { cloudinaryUrl } from "../lib/cloudinary";
 
 const WHATSAPP_NUMBER = "558198498446";
 
@@ -21,14 +24,23 @@ export type Imovel = {
   nome: string;
   localizacao: string;
   precoApartirDe: string;
-  metragem: string;
-  quartos: number;
-  banheiros: number;
+  metragem?: string;
+  quartos?: number;
+  banheiros?: number;
   destaque: string;
   imagem: string;
 };
 
-const imoveis: Imovel[] = [
+export type ImoveisSectionProps = {
+  id: string;
+  eyebrow: string;
+  titulo: string;
+  descricao: string;
+  imoveis: Imovel[];
+  className?: string;
+};
+
+const imoveisLitoral: Imovel[] = [
   {
     id: "aika-vila-tamandare",
     nome: "Aikã Vila Tamandaré",
@@ -38,7 +50,7 @@ const imoveis: Imovel[] = [
     quartos: 1,
     banheiros: 1,
     destaque: "Litoral Sul",
-    imagem: imgAika,
+    imagem: cloudinaryUrl("v1786031572/aika_lbn4ih.webp"),
   },
   {
     id: "mahrak-villa-maracaipe",
@@ -49,7 +61,7 @@ const imoveis: Imovel[] = [
     quartos: 1,
     banheiros: 1,
     destaque: "Litoral Sul",
-    imagem: imgMahrak,
+    imagem: cloudinaryUrl("v1786031576/mahrak_pcbiic.webp"),
   },
   {
     id: "tahre-villa-tamandare",
@@ -60,7 +72,7 @@ const imoveis: Imovel[] = [
     quartos: 1,
     banheiros: 1,
     destaque: "Litoral Sul",
-    imagem: imgTahre,
+    imagem: cloudinaryUrl("v1786031563/tahre_nib9pc.webp"),
   },
   {
     id: "umahre-villa-carneiros",
@@ -71,21 +83,72 @@ const imoveis: Imovel[] = [
     quartos: 1,
     banheiros: 1,
     destaque: "Litoral Sul",
-    imagem: imgUmahre,
+    imagem: cloudinaryUrl("v1786031557/umahre_kknsjg.webp"),
   },
 ];
 
 function whatsappUrl(imovel: Imovel) {
-  const mensagem = `Olá, Jonathas! Tenho interesse no empreendimento *${imovel.nome}* (${imovel.localizacao}), com valores a partir de ${imovel.precoApartirDe}. Gostaria de mais informações.`;
+  const preco =
+    imovel.precoApartirDe.toLowerCase() === "sob consulta"
+      ? "valores sob consulta"
+      : `valores a partir de ${imovel.precoApartirDe}`;
+  const mensagem = `Olá, Jonathas! Tenho interesse no empreendimento *${imovel.nome}* (${imovel.localizacao}), com ${preco}. Gostaria de mais informações.`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`;
 }
 
-function Imoveis() {
+function Specs({ imovel }: { imovel: Imovel }) {
+  const itens = [
+    imovel.metragem
+      ? {
+          key: "m",
+          icon: <FaRulerCombined className="text-accent" aria-hidden />,
+          label: imovel.metragem,
+        }
+      : null,
+    typeof imovel.quartos === "number"
+      ? {
+          key: "q",
+          icon: <FaBed className="text-accent" aria-hidden />,
+          label: `${imovel.quartos} ${imovel.quartos === 1 ? "quarto" : "quartos"}`,
+        }
+      : null,
+    typeof imovel.banheiros === "number"
+      ? {
+          key: "b",
+          icon: <FaBath className="text-accent" aria-hidden />,
+          label: `${imovel.banheiros} ${imovel.banheiros === 1 ? "banheiro" : "banheiros"}`,
+        }
+      : null,
+  ].filter(Boolean) as { key: string; icon: ReactNode; label: string }[];
+
+  if (itens.length === 0) return null;
+
+  return (
+    <span className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-bg-dark/10 pt-5 text-sm text-bg-dark/65">
+      {itens.map((item) => (
+        <span key={item.key} className="inline-flex items-center gap-1.5">
+          {item.icon}
+          {item.label}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+export function ImoveisSection({
+  id,
+  eyebrow,
+  titulo,
+  descricao,
+  imoveis,
+  className = "bg-bg-light py-16 lg:py-24",
+}: ImoveisSectionProps) {
   const [selecionado, setSelecionado] = useState<Imovel | null>(null);
   const [podeVoltar, setPodeVoltar] = useState(false);
   const [podeAvancar, setPodeAvancar] = useState(true);
   const scrollerRef = useRef<HTMLUListElement>(null);
   const tituloId = useId();
+  const headingId = `${id}-titulo`;
 
   const atualizarSetas = () => {
     const el = scrollerRef.current;
@@ -136,11 +199,7 @@ function Imoveis() {
   }, [selecionado]);
 
   return (
-    <section
-      id="imoveis"
-      className="bg-bg-light py-16 lg:py-24"
-      aria-labelledby="imoveis-titulo"
-    >
+    <section id={id} className={className} aria-labelledby={headingId}>
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div
           className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
@@ -148,17 +207,16 @@ function Imoveis() {
         >
           <div className="max-w-2xl">
             <p className="mb-3 text-xs font-semibold tracking-[0.2em] text-bg-dark/45 uppercase">
-              Portfólio
+              {eyebrow}
             </p>
             <h2
-              id="imoveis-titulo"
+              id={headingId}
               className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-semibold leading-tight tracking-tight text-bg-dark"
             >
-              Imóveis no litoral
+              {titulo}
             </h2>
             <p className="mt-4 text-base leading-relaxed text-bg-dark/65">
-              Seleção de empreendimentos no litoral de Pernambuco. Clique para
-              conhecer detalhes e solicitar informações.
+              {descricao}
             </p>
           </div>
 
@@ -191,7 +249,7 @@ function Imoveis() {
 
         <ul
           ref={scrollerRef}
-          className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] scrollbar-width:none [&::-webkit-scrollbar]:hidden"
         >
           {imoveis.map((imovel, index) => (
             <li
@@ -236,21 +294,7 @@ function Imoveis() {
                     {imovel.precoApartirDe}
                   </span>
 
-                  <span className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-bg-dark/10 pt-5 text-sm text-bg-dark/65">
-                    <span className="inline-flex items-center gap-1.5">
-                      <FaRulerCombined className="text-accent" aria-hidden />
-                      {imovel.metragem}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5">
-                      <FaBed className="text-accent" aria-hidden />
-                      {imovel.quartos} quartos
-                    </span>
-                    <span className="inline-flex items-center gap-1.5">
-                      <FaBath className="text-accent" aria-hidden />
-                      {imovel.banheiros}{" "}
-                      {imovel.banheiros === 1 ? "banheiro" : "banheiros"}
-                    </span>
-                  </span>
+                  <Specs imovel={imovel} />
 
                   <span className="mt-auto cursor-pointer pt-6 text-sm font-semibold text-bg-dark transition-colors group-hover:text-accent">
                     Ver detalhes
@@ -315,21 +359,32 @@ function Imoveis() {
                 {selecionado.precoApartirDe}
               </p>
 
-              <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-bg-dark/65">
-                <span className="inline-flex items-center gap-1.5">
-                  <FaRulerCombined className="text-accent" aria-hidden />
-                  {selecionado.metragem}
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <FaBed className="text-accent" aria-hidden />
-                  {selecionado.quartos} quartos
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <FaBath className="text-accent" aria-hidden />
-                  {selecionado.banheiros}{" "}
-                  {selecionado.banheiros === 1 ? "banheiro" : "banheiros"}
-                </span>
-              </div>
+              {(selecionado.metragem ||
+                typeof selecionado.quartos === "number" ||
+                typeof selecionado.banheiros === "number") && (
+                <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-bg-dark/65">
+                  {selecionado.metragem && (
+                    <span className="inline-flex items-center gap-1.5">
+                      <FaRulerCombined className="text-accent" aria-hidden />
+                      {selecionado.metragem}
+                    </span>
+                  )}
+                  {typeof selecionado.quartos === "number" && (
+                    <span className="inline-flex items-center gap-1.5">
+                      <FaBed className="text-accent" aria-hidden />
+                      {selecionado.quartos}{" "}
+                      {selecionado.quartos === 1 ? "quarto" : "quartos"}
+                    </span>
+                  )}
+                  {typeof selecionado.banheiros === "number" && (
+                    <span className="inline-flex items-center gap-1.5">
+                      <FaBath className="text-accent" aria-hidden />
+                      {selecionado.banheiros}{" "}
+                      {selecionado.banheiros === 1 ? "banheiro" : "banheiros"}
+                    </span>
+                  )}
+                </div>
+              )}
 
               <a
                 href={whatsappUrl(selecionado)}
@@ -345,6 +400,18 @@ function Imoveis() {
         </div>
       )}
     </section>
+  );
+}
+
+function Imoveis() {
+  return (
+    <ImoveisSection
+      id="imoveis"
+      eyebrow="Portfólio"
+      titulo="Imóveis no litoral"
+      descricao="Seleção de empreendimentos no litoral de Pernambuco. Clique para conhecer detalhes e solicitar informações."
+      imoveis={imoveisLitoral}
+    />
   );
 }
 

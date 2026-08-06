@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import NewPalace from "./components/NewPalace";
 import Imoveis from "./components/Imoveis";
+import MedioPadrao from "./components/MedioPadrao";
 import Diferenciais from "./components/Diferenciais";
 import Depoimentos from "./components/Depoimentos";
 import Cta from "./components/Cta";
@@ -23,6 +24,7 @@ function App() {
         <About />
         <NewPalace />
         <Imoveis />
+        <MedioPadrao />
         <Diferenciais />
         <Depoimentos />
         <Cta />
