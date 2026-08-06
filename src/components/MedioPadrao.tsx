@@ -7,6 +7,7 @@ const imoveisMedioPadrao: Imovel[] = [
     nome: "Boulevard",
     localizacao: "Ilha do Retiro, Recife - PE",
     precoApartirDe: "R$ 393.008,09",
+    metragem: "73 m²",
     quartos: 3,
     banheiros: 2,
     destaque: "Médio Padrão",
