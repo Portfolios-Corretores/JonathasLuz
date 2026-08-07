@@ -1,5 +1,5 @@
 import { FaWhatsapp, FaStar } from "react-icons/fa";
-import fundoHero from "../assets/hero-fundo.webp";
+import { HERO_IMAGE_URL } from "../lib/cloudinary";
 
 const WHATSAPP_URL = "https://wa.me/558198498446";
 const GOOGLE_PERFIL_URL =
@@ -14,10 +14,10 @@ function Hero() {
     >
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
         <img
-          src={fundoHero}
+          src={HERO_IMAGE_URL}
           alt=""
           fetchPriority="high"
-          decoding="async"
+          decoding="sync"
           className="h-full w-full scale-105 object-cover object-center animate-hero-image blur-[0.4px]"
         />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(21_24_30/0.82)_0%,rgb(21_24_30/0.68)_35%,rgb(21_24_30/0.45)_65%,rgb(21_24_30/0.35)_100%)] max-md:bg-[linear-gradient(180deg,rgb(21_24_30/0.5)_0%,rgb(21_24_30/0.65)_40%,rgb(21_24_30/0.85)_100%)]" />

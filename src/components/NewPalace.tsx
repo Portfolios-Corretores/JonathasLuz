@@ -1,9 +1,12 @@
 import { FaInstagram, FaGlobe } from "react-icons/fa";
-import fachadaNewPalace from "../assets/fachadaNewPalace.webp";
+import { cloudinaryUrl } from "../lib/cloudinary";
 
 const INSTAGRAM_IMOBILIARIA_URL =
   "https://www.instagram.com/imobiliarianewpalace/";
 const SITE_IMOBILIARIA_URL = "https://www.imobiliarianewpalace.com.br/";
+const FACHADA_IMAGE = cloudinaryUrl(
+  "v1786108093/fachadaNewPalace_zjk0df.webp",
+);
 
 function NewPalace() {
   return (
@@ -69,7 +72,7 @@ function NewPalace() {
           data-reveal="right"
         >
           <img
-            src={fachadaNewPalace}
+            src={FACHADA_IMAGE}
             alt="Fachada da New Palace Imobiliária"
             className="aspect-4/3 w-full object-cover"
             loading="lazy"

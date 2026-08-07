@@ -33,7 +33,16 @@
     />
     <meta name="twitter:image" content="/fotoJonathas.webp" />
     <link rel="image_src" href="/fotoJonathas.webp" />
-    <link rel="preload" as="image" href="/fotoJonathas.webp" type="image/webp" />
+
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="https://res.cloudinary.com/%VITE_CLOUDINARY_CLOUD_NAME%/image/upload/f_auto,q_auto,w_1920/v1786107801/hero-fundo_qj3jqq.webp"
+      fetchpriority="high"
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
